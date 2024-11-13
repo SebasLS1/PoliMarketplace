@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - PoliMarketPlace</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <style>
+        .btn-register {
+            background-color: rgba(245, 134, 37, 0.85); /* Naranja con opacidad */
+            color: black; /* Color del texto del botón de registro */
+            font-size: 1.5rem; /* Tamaño del botón */
+            border-radius: 50px; /* Hacer los botones redondos */
+            padding: 0.75rem 2rem; /* Ajustar el padding para hacer los botones más grandes */
+        }
+        .box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ECF0F1; /* Gris Claro */
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1 class="text-center">¡Regístrate y crea tu cuenta!</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="first_name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" required>
+                </div>
+                <div class="col">
+                    <label for="last_name" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="birth_date" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="birth_date" name="birth_date" required>
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Género</label>
+                <select class="form-control" id="gender" name="gender" required>
+                    <option value="">Seleccione</option>
+                    <option value="male">Masculino</option>
+                    <option value="female">Femenino</option>
+                    <option value="other">Otro</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="sector" class="form-label">Sector</label>
+                <select class="form-control" id="sector" name="sector" required>
+                    <option value="">Seleccione</option>
+                    <!-- Opciones del menú desplegable -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="cedula" class="form-label">Cédula</label>
+                <input type="text" class="form-control" id="cedula" name="cedula" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirmar Contraseña</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+            </div>
+            <button type="submit" class="btn btn-register">Registrarse</button>
+        </form>
+    </div>
+
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
