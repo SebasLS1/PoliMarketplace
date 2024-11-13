@@ -3,20 +3,74 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PoliMarketplace</title>
-<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoliMarketPlace</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            background-color: #ECF0F1; /* Gris Claro */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinear contenido al inicio del eje vertical */
+            height: 100vh;
+            margin: 0;
+            padding-top: 12rem; /* Añadir un poco de espacio en la parte superior */
+            background-image: url("{% static 'images/FondoPrincipal.png' %}");
+            background-position: top right;
+            background-repeat: no-repeat;
+        }
+        .text-primary-custom {
+            color: rgba(245, 134, 37, 0.85); /* Naranja con opacidad */
+        }
+        .btn-login {
+            background-color: #fff1cc; /* Color del botón de login */
+            color: black;
+            font-size: 2rem; /* Tamaño del botón */
+            border-radius: 50px; /* Hacer los botones redondos */
+            padding: 0.75rem 2rem; /* Ajustar el padding para hacer los botones más grandes */
+        }
+        .btn-register {
+            background-color: rgba(245, 134, 37, 0.85); /* Naranja con opacidad */
+            color: black; /* Color del texto del botón de registro */
+            font-size: 2rem; /* Tamaño del botón */
+            border-radius: 50px; /* Hacer los botones redondos */
+            padding: 0.75rem 2rem; /* Ajustar el padding para hacer los botones más grandes */
+        }
+        .title {
+            font-size: 5rem; /* Tamaño de las letras del título */
+            color: #2C3E50; /* Azul Marino */
+        }
+        .slogan {
+            font-size: 1.5rem; /* Tamaño del eslogan */
+            color: #2C3E50; /* Azul Marino */
+            white-space: normal; /* Permitir que el texto se ajuste a la siguiente línea */
+        }
+        .content {
+            text-align: left; /* Alinear contenido a la izquierda */
+        }
+        .box {
+            display: inline-block;
+            text-align: left;
+            max-width: 35rem; /* Ajustar el ancho de la caja */
+        }
+    </style>
 </head>
 <body>
-    <div class="p-5">
-        <h1 class="fw-bold">Bienvenido a Poli Market Place</h1>
-        <h2>El comercio virtual nunca fue tan facil!</h2>
-        <p> 
-           Compra y vende productos de manera segura y rapida.
-        </p>
+    <div class="container text-left content">
+        <div class="box">
+            <h1 class="fw-bold title">
+                <span class="text-dark">Poli</span><span class="text-primary-custom">Market</span><span class="text-dark">Place</span>
+            </h1>
+            <h2 class="slogan">Compra y vende cerca de ti, de manera fácil y segura en PoliMarketplace.</h2>
         </div>
-        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <div class="mt-4 d-flex justify-content-start">
+            <a href="#" class="btn btn-login mx-2">Login</a>
+            <a href="#" class="btn btn-register mx-2">Sign-up</a>
+        </div>
+    </div>
+
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 </html>
