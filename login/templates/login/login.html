@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PoliMarketPlace</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <style>
+      
+        /* Título */
+        h1 {
+            font-size: 6rem;
+            font-weight: bold;
+            color: #000; /* Color negro */
+            margin-bottom: 1rem;
+        }
+
+        body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            background-color: #ECF0F1; /* Gris Claro */
+            background-image: url("{% static 'images/FondoPrincipal.png' %}");
+            background-position: top right;
+            background-repeat: no-repeat;
+            padding-left: 10%; 
+            /* Campos de entrada */
+        }
+        form {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+     
+
+        .form-control {
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            background-color: #cfcfcf; /* Gris Claro */
+        }
+        
+    
+    label {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 0rem;
+        color: #7f8c8d; /* Gris claro */
+        align-self: flex-start;
+    }
+
+    /* Botón */
+        .btn-submit {
+            background-color: #ffd86c; /* Amarillo suave */
+            color: #000;
+            font-weight: bold;
+            border-radius: 30px;
+            padding: 0.75rem 2rem;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #ECF0F1; /* Color amarillo más oscuro */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Inicia sesión</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo aquí" required>
+            
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña aquí" required>
+            
+            <button type="submit" class="btn btn-submit">ENTRAR</button>
+        </form>
+    </div>
+
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
