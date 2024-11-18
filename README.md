@@ -22,10 +22,4 @@ PoliMarketplace es un marketplace intuitivo y fácil de usar, donde los usuarios
 - ![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jquery&logoColor=white) **jQuery**
 - **jQuery UI** (para elementos interactivos)
 
-## 🔧 Instalación
-Sigue estos pasos para ejecutar el proyecto localmente:
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/tuusuario/PoliMarketplace.git
 
