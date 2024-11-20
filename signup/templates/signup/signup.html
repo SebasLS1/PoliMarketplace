@@ -70,7 +70,9 @@
                 <label for="sector" class="form-label">Sector</label>
                 <select class="form-control" id="sector" name="sector" required>
                     <option value="">Seleccione</option>
-                    <!-- Opciones del menú desplegable -->
+                    {% for sector in sectors %}
+                        <option value="{{ sector.id }}">{{ sector.name }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="mb-3">
