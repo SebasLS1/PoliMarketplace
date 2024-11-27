@@ -129,7 +129,6 @@ os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # settings.py
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Usar base de datos para sesiones
-
+# Configuración de la autenticación personalizada
 AUTH_USER_MODEL = 'signup.Usuario'
 
