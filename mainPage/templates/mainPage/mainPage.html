@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal - PoliMarketPlace</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            background-image: url("{% static 'images/FondoPrincipal.png' %}");
+            background-position: top right;
+            background-repeat: no-repeat;
+            background-size: 750px 100px; 
+        }
+        .container {
+            margin-top: 5px; /* Mover el contenido más arriba */
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .search-bar {
+            margin-top: 5px; /* Reducir el margen superior */
+            display: flex;
+            align-items: center;
+        }
+        .search-bar .icon-buttons {
+            margin-right: -110px; /* Añadir espaciado entre los iconos y la barra de búsqueda */
+        }
+        .search-bar input {
+            font-size: 0.875rem; /* Reducir el tamaño de la fuente */
+            padding: 0.375rem; /* Reducir el padding */
+            width: 50%; /* Ajustar el ancho del input */
+            margin: 0 auto; /* Centrar el input horizontalmente */
+        }
+        .title {
+            font-size: 3rem; /* Reducir el tamaño de las letras del título */
+            color: #2C3E50; /* Azul Marino */
+        }
+        .text-primary-custom {
+            color: rgba(245, 134, 37, 0.85); /* Naranja con opacidad */
+        }
+        .filter-menu {
+            margin-top: 5px; /* Mover el menú de filtros más arriba */
+            background-color: #e9ecef; /* Gris claro */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .filter-menu h5 {
+            font-weight: bold;
+        }
+        .filter-menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .filter-menu li {
+            padding: 5px 0;
+        }
+        .filter-menu li a {
+            color: #6c757d; /* Gris inicial */
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .filter-menu li a.selected {
+            color: rgba(245, 134, 37, 0.85); /* Naranja con opacidad */
+        }
+        .icon-buttons {
+            display: flex;
+            align-items: center;
+        }
+        .icon-buttons a {
+            display: inline-block;
+            width: 30px; /* Hacer los iconos más pequeños */
+            height: 30px; /* Hacer los iconos más pequeños */
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin: 0 5px; /* Espaciado entre los iconos */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-3">
+        <h1 class="text-center title">
+            <span class="text-dark">Poli</span><span class="text-primary-custom">Market</span><span class="text-dark">Place</span>
+        </h1>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="search-bar">
+                    <div class="icon-buttons">
+                        <a href="#" style="background-image: url('{% static 'images/Account.png' %}');"></a>
+                        <a href="#" style="background-image: url('{% static 'images/guardar.png' %}');"></a>
+                        <a href="#" style="background-image: url('{% static 'images/Mensajes.png' %}');"></a>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Buscar productos, servicios y más...">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <div class="filter-menu">
+                    <h5>Categoría</h5>
+                    <ul>
+                        <li><a href="#" class="filter-link">Vehículos</a></li>
+                        <li><a href="#" class="filter-link">Artículos deportivos</a></li>
+                        <li><a href="#" class="filter-link">Artículos para el hogar</a></li>
+                        <li><a href="#" class="filter-link">Electrónica</a></li>
+                        <li><a href="#" class="filter-link">Ropa</a></li>
+                        <li><a href="#" class="filter-link">Entretenimiento</a></li>
+                        <li><a href="#" class="filter-link">Jardín y aire libre</a></li>
+                        <li><a href="#" class="filter-link">Juguetes</a></li>
+                        <li><a href="#" class="filter-link">Herramientas</a></li>
+                    </ul>
+                    <h5>Filtrar por:</h5>
+                    <div class="filter-option">
+                        <label for="price-range">Precio:</label>
+                        <div class="d-flex">
+                            <input type="text" id="price-min" class="form-control" placeholder="Desde" style="margin-right: 5px;">
+                            <input type="text" id="price-max" class="form-control" placeholder="Hasta">
+                        </div>
+                    </div>
+                    <div class="filter-option mt-3">
+                        <label for="condition">Condición:</label>
+                        <select id="condition" class="form-control">
+                            <option value="">Seleccione</option>
+                            <option value="new">Nuevo</option>
+                            <option value="used">Usado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <h5>Productos en tu zona:</h5>
+                <!-- Aquí se listarán los productos en tu zona -->
+                <h5 class="mt-4">Más productos:</h5>
+                <!-- Aquí se listarán más productos -->
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterLinks = document.querySelectorAll('.filter-link');
+            filterLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    filterLinks.forEach(link => link.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

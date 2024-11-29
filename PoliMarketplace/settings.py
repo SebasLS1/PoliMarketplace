@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'home',
     'signup',
     'login',
+    'mainPage',
 ]
 
 MIDDLEWARE = [

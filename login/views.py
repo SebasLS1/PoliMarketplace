@@ -18,7 +18,7 @@ def login_view(request):
             if check_password(password, usuario.password):
                 print("Contraseña correcta")  # Verifica que la contraseña esté siendo verificada correctamente
                 login(request, usuario)
-                return redirect('home')  # Redirige a la página de inicio
+                return redirect('mainPage')  # Redirige a la página principal
             else:
                 # Si la contraseña es incorrecta
                 print("Contraseña incorrecta")  # Verifica que el mensaje se imprima si la contraseña es incorrecta
