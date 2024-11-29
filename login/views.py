@@ -4,7 +4,6 @@ from signup.models import Usuario
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import login
 
-# Vista de login
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -19,13 +18,15 @@ def login_view(request):
             if check_password(password, usuario.password):
                 print("Contraseña correcta")  # Verifica que la contraseña esté siendo verificada correctamente
                 login(request, usuario)
-                return redirect('home')
+                return redirect('home')  # Redirige a la página de inicio
             else:
+                # Si la contraseña es incorrecta
                 print("Contraseña incorrecta")  # Verifica que el mensaje se imprima si la contraseña es incorrecta
-                messages.error(request, "Contraseña incorrecta")
+                messages.error(request, "Email o contraseña incorrectos. Intenta de nuevo.")
         except Usuario.DoesNotExist:
+            # Si el email no está registrado
             print("Usuario no encontrado")  # Verifica que se imprima este mensaje si el usuario no está en la base de datos
-            messages.error(request, "El email no está registrado")
+            messages.error(request, "Email o contraseña incorrectos. Intenta de nuevo.")
     
     return render(request, 'login/login.html')
 
