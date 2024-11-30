@@ -42,7 +42,6 @@ def signup_view(request):
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
 
-
         # Convertir la fecha de nacimiento
         try:
             birth_date = date.fromisoformat(birth_date)
@@ -95,8 +94,8 @@ def signup_view(request):
             password=hashed_password
         )
         usuario.save()
-        messages.success(request, 'Registro exitoso.')
-        return redirect('home')
+        messages.success(request, 'Registro exitoso. Por favor, inicia sesión.')
+        return redirect('login')  # Redirige a la página de login
     
     sectors = Sector.objects.all()
     return render(request, 'signup/signup.html', {'sectors': sectors})
