@@ -91,7 +91,9 @@
             <div class="col-md-12">
                 <div class="search-bar">
                     <div class="icon-buttons">
-                        <a href="#" style="background-image: url('{% static 'images/Account.png' %}');"></a>
+                        <a href="{%url 'userView' %}" style="background-image: url('{% static 'images/Account.png' %}');">
+                            <i class="fas fa-user"></i> <!-- images/Account.png-->
+                        </a>
                         <a href="#" style="background-image: url('{% static 'images/guardar.png' %}');"></a>
                         <a href="#" style="background-image: url('{% static 'images/Mensajes.png' %}');"></a>
                     </div>

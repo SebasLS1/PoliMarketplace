@@ -8,4 +8,5 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('signup/', include('signup.urls')),
     path('mainPage/', include('mainPage.urls')),
+    path('userView/', include('userView.urls')),
 ]
