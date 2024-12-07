@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'login',
     'mainPage',
     'userView',
+    'publish',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Configuración de la autenticación personalizada
 AUTH_USER_MODEL = 'signup.Usuario'
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
