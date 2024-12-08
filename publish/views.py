@@ -13,22 +13,23 @@ def get_object_or_error(model, field, value, error_message):
 def publish(request):
     if request.method == 'POST':
         try:
-            # Validar y procesar los datos del formulario
+            
             titulo = request.POST['titulo']
             descripcion = request.POST['descripcion']
             precio = float(request.POST['precio'])
             categoria_id = request.POST['categoria']
             estado_id = request.POST['estado']
-            imagenes = request.FILES.getlist('imagenes')  # Aquí obtenemos las imágenes del formulario
+            imagenes = request.FILES.getlist('imagenes')
 
             if not titulo or not descripcion or not precio:
                 raise ValueError('Todos los campos son obligatorios.')
 
-            # Validar la categoría y el estado
+            if not imagenes:
+                raise ValueError('Debes cargar al menos una imagen.')
+
             categoria = get_object_or_error(Categoria, 'id', categoria_id, 'Categoría inválida.')
             estado = get_object_or_error(Estado, 'id', estado_id, 'Estado inválido.')
 
-            # Crear el producto
             producto = Producto.objects.create(
                 titulo=titulo,
                 descripcion=descripcion,
@@ -38,12 +39,11 @@ def publish(request):
                 estado=estado,
             )
 
-            # Guardar las imágenes asociadas al producto
             for imagen in imagenes:
-                Imagen.objects.create(producto=producto, url_imagen=imagen)
+                Imagen.objects.create(producto=producto, imagen=imagen)
 
-            return redirect('userView')  # Redirige a la vista del usuario, ajusta según corresponda
-
+            return redirect('userView')  
+        
         except ValueError as e:
             return render(request, 'publish/publish.html', {
                 'error': str(e),
@@ -61,10 +61,12 @@ def publish(request):
                 'error': f'Ocurrió un error inesperado: {e}',
                 'categorias': Categoria.objects.all(),
                 'estados': Estado.objects.all(),
-            })
 
-    # En caso de GET, renderiza el formulario
+            })
+    
+
     return render(request, 'publish/publish.html', {
         'categorias': Categoria.objects.all(),
         'estados': Estado.objects.all(),
     })
+
