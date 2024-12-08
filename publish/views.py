@@ -49,6 +49,8 @@ def publish(request):
                 'error': str(e),
                 'categorias': Categoria.objects.all(),
                 'estados': Estado.objects.all(),
+                
+
             })
         except IntegrityError:
             return render(request, 'publish/publish.html', {
