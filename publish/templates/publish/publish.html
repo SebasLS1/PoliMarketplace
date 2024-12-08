@@ -40,7 +40,6 @@
             position: relative;
         }
         .image-upload img {
-            
             max-width: 100%;
             max-height: 100%;
             object-fit: cover;
@@ -118,15 +117,9 @@
                     <label for="categoria">Categoría</label>
                     <select class="form-select" id="categoria" name="categoria" required>
                         <option value="">Seleccione una categoría</option>
-                        <option value="vehiculos">Vehículos</option>
-                        <option value="articulos_deportivos">Artículos deportivos</option>
-                        <option value="articulos_para_el_hogar">Artículos para el hogar</option>
-                        <option value="electronica">Electrónica</option>
-                        <option value="ropa">Ropa</option>
-                        <option value="entretenimiento">Entretenimiento</option>
-                        <option value="jardin_y_aire_libre">Jardín y aire libre</option>
-                        <option value="juguetes">Juguetes</option>
-                        <option value="herramientas">Herramientas</option>
+                        {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}">{{ categoria.nombre_categoria }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             
@@ -134,8 +127,9 @@
                     <label for="estado">Estado</label>
                     <select class="form-select" id="estado" name="estado" required>
                         <option value="">Seleccione un estado</option>
-                        <option value="nuevo">Nuevo</option>
-                        <option value="usado">Usado</option>
+                        {% for estado in estados %}
+                        <option value="{{ estado.id }}">{{ estado.nombre_estado }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             
@@ -148,7 +142,6 @@
                     <button type="submit" class="btn-publish">Publicar Artículo</button>
                 </div>
             </form>
-            
         </div>
     </div>
 

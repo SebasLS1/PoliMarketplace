@@ -23,8 +23,10 @@ class Producto(models.Model):
     estado = models.ForeignKey(Estado, on_delete=models.SET_NULL, null=True) 
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
 
-    def __str__(self):
-        return self.titulo
+    def save(self, *args, **kwargs):
+        print(f"Guardando producto: {self.titulo}")
+        super().save(*args, **kwargs)
+        print(f"Producto guardado con ID: {self.id}")
 
 
 class Imagen(models.Model):
