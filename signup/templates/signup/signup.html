@@ -52,7 +52,6 @@
     <div class="box">
         <h1 class="text-center">¡Regístrate y crea tu cuenta!</h1>
     
-        <!-- Mostrar mensajes de error solo si existen -->
         {% if messages %}
         <div class="alert alert-danger text-center" role="alert">
             <ul>
@@ -105,10 +104,10 @@
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{ request.POST.email }}" required>
-            </div>
-            
+    <label for="email" class="form-label">Correo Electrónico</label>
+    <input type="email" class="form-control" id="email" name="email" value="{{ request.POST.email }}" required>
+    </div>
+
 
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>

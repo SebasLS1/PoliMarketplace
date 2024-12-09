@@ -1,4 +1,6 @@
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
@@ -9,4 +11,8 @@ urlpatterns = [
     path('signup/', include('signup.urls')),
     path('mainPage/', include('mainPage.urls')),
     path('userView/', include('userView.urls')),
+    path('publish/', include('publish.urls'))
 ]
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
