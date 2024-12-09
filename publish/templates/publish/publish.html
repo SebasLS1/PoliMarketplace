@@ -147,16 +147,28 @@
 
     <script>
         document.getElementById('imageInput').addEventListener('change', function(event) {
-            var file = event.target.files[0];
-            if (file) {
+            var files = event.target.files;
+            var maxSize = 3 * 1024 * 1024; // 3 MB en bytes
+            var valid = true;
+    
+            Array.from(files).forEach(function(file) {
+                if (file.size > maxSize) {
+                    alert('El archivo "' + file.name + '" sobrepasa el tamaño máximo de 3MB. Asegúrate de que sea menor a este tamaño.');
+                    valid = false;
+                    event.target.value = ''; 
+                }
+            });
+    
+            if (valid && files.length > 0) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('imagePreview').src = e.target.result;
                     document.getElementById('imageUpload').classList.add('loaded');
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(files[0]); 
             }
         });
     </script>
+    
 </body>
 </html>

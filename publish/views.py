@@ -36,6 +36,12 @@ def publish(request):
             categoria = get_object_or_error(Categoria, 'id', categoria_id, 'Categoría inválida.')
             estado = get_object_or_error(Estado, 'id', estado_id, 'Estado inválido.')
 
+            #Validar tamaño
+            max_size = 3 * 1024 * 1024  # 3 MB
+            for imagen in request.FILES.getlist('imagenes'):
+                if imagen.size > max_size:
+                    raise ValueError(f'El archivo {imagen.name} sobrepasa el tamaño máximo de 3MB.')
+
             # Crear el producto
             producto = Producto.objects.create(
                 titulo=titulo,
