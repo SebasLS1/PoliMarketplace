@@ -22,8 +22,11 @@ class Producto(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     estado = models.ForeignKey(Estado, on_delete=models.SET_NULL, null=True) 
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
-
+    sector = models.CharField(max_length=100, null=True, blank=True)
+    
     def save(self, *args, **kwargs):
+        if not self.sector and self.usuario:
+            self.sector = self.usuario.sector
         print(f"Guardando producto: {self.titulo}")
         super().save(*args, **kwargs)
         print(f"Producto guardado con ID: {self.id}")
