@@ -115,7 +115,7 @@
 <body>
 
     <div class="icon-buttons">
-        <a href="{%url 'mainPage' %}" style="background-image: url('{% static 'images/Close.png' %}');">
+        <a href="{% url 'mainPage' %}" style="background-image: url('{% static 'images/Close.png' %}');">
             <i class="fas fa-user"></i>
         </a>
         <a href="#" style="background-image: url('{% static 'images/Settings.png' %}');"></a>
@@ -125,7 +125,7 @@
         <div class="profile-header">
             <img src="{% static 'images/fotoDefaultTemp.png' %}" alt="Foto de perfil">
             <div class="profile-info">
-                <h1>{{name}}</h1>
+                <h1>{{ name }}</h1>
                 <p class="sector-label">Sector:</p>
                 <p class="sector-value">{{ sector }}</p>
             </div>
@@ -135,14 +135,18 @@
         <div class="col-md-8">
             <h2 class="mb-4">Tus artículos en venta</h2>
             <div class="row">
-                {% for article in articles %}
+                {% for article in user_articles %}
                 <div class="col-md-6">
                     <div class="article-card">
-                        <img src="{{ article.image.url }}" alt="{{ article.name }}">
+                        {% if article.imagenes.all %}
+                            <img src="{{ article.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ article.titulo }}">
+                        {% else %}
+                            <img src="{% static 'images/default.png' %}" class="card-img-top" alt="{{ article.titulo }}">
+                        {% endif %}
                         <div class="card-body">
-                            <h5>{{ article.name }}</h5>
-                            <p>${{ article.price }}</p>
-                            <button>Marcar como vendido</button>
+                            <h5 class="card-title">{{ article.titulo }}</h5>
+                            <p class="card-text">${{ article.precio }}</p>
+                            <button class="btn btn-warning">Marcar como vendido</button>
                         </div>
                     </div>
                 </div>
@@ -162,16 +166,5 @@
              
 
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterLinks = document.querySelectorAll('.filter-link');
-            filterLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    filterLinks.forEach(link => link.classList.remove('selected'));
-                    this.classList.add('selected');
-                });
-            });
-        });
-    </script>
 </body>
 </html>

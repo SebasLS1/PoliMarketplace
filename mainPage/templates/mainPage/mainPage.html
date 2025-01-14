@@ -91,7 +91,7 @@
             <div class="col-md-12">
                 <div class="search-bar">
                     <div class="icon-buttons">
-                        <a href="{%url 'userView' %}" style="background-image: url('{% static 'images/Account.png' %}');">
+                        <a href="{% url 'userView' %}" style="background-image: url('{% static 'images/Account.png' %}');">
                             <i class="fas fa-user"></i> <!-- images/Account.png-->
                         </a>
                         <a href="#" style="background-image: url('{% static 'images/guardar.png' %}');"></a>
@@ -137,8 +137,48 @@
             <div class="col-md-9">
                 <h5>Productos en tu zona:</h5>
                 <!-- Aquí se listarán los productos en tu zona -->
+                <div class="row">
+                    {% for producto in productos_sector %}
+                        <div class="col-md-4">
+                            <div class="card">
+                                {% if producto.imagenes.all %}
+                                    <img src="{{ producto.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
+                                {% else %}
+                                    <img src="{% static 'images/default.png' %}" class="card-img-top" alt="{{ producto.titulo }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h6 class="card-title">{{ producto.titulo }}</h6>
+                                    <p class="card-text">{{ producto.descripcion }}</p>
+                                    <p class="card-text">Precio: {{ producto.precio }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>No hay productos en tu zona.</p>
+                    {% endfor %}
+                </div>
                 <h5 class="mt-4">Más productos:</h5>
                 <!-- Aquí se listarán más productos -->
+                <div class="row">
+                    {% for producto in otros_productos %}
+                        <div class="col-md-4">
+                            <div class="card">
+                                {% if producto.imagenes.all %}
+                                    <img src="{{ producto.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
+                                {% else %}
+                                    <img src="{% static 'images/default.png' %}" class="card-img-top" alt="{{ producto.titulo }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h6 class="card-title">{{ producto.titulo }}</h6>
+                                    <p class="card-text">{{ producto.descripcion }}</p>
+                                    <p class="card-text">Precio: {{ producto.precio }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>No hay más productos.</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
