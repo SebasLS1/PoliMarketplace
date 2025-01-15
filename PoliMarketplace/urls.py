@@ -11,7 +11,8 @@ urlpatterns = [
     path('signup/', include('signup.urls')),
     path('mainPage/', include('mainPage.urls')),
     path('userView/', include('userView.urls')),
-    path('publish/', include('publish.urls'))
+    path('publish/', include('publish.urls')),
+    path('productos/', include('productos.urls')),
 ]
 
 

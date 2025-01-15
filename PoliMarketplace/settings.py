@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'mainPage',
     'userView',
     'publish',
+    'productos',
 ]
 
 MIDDLEWARE = [
