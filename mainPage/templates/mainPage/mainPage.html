@@ -141,11 +141,13 @@
                     {% for producto in productos_sector %}
                         <div class="col-md-4">
                             <div class="card">
-                                {% if producto.imagenes.all %}
-                                    <img src="{{ producto.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
-                                {% else %}
-                                    <img src="{% static 'images/default.png' %}" class="card-img-top" alt="{{ producto.titulo }}">
-                                {% endif %}
+                                <a href="{% url 'producto_detalle' producto.id %}">
+                                    {% if producto.imagenes.all %}
+                                        <img src="{{ producto.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
+                                    {% else %}
+                                        <img src="{% static 'images/default.png' %}" class="card-img-top" alt="{{ producto.titulo }}">
+                                    {% endif %}
+                                </a>
                                 <div class="card-body">
                                     <h6 class="card-title">{{ producto.titulo }}</h6>
                                     <p class="card-text">{{ producto.descripcion }}</p>
@@ -163,11 +165,13 @@
                     {% for producto in otros_productos %}
                         <div class="col-md-4">
                             <div class="card">
-                                {% if producto.imagenes.all %}
-                                    <img src="{{ producto.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
-                                {% else %}
-                                    <img src="{% static 'images/default.png' %}" class="card-img-top" alt="{{ producto.titulo }}">
-                                {% endif %}
+                                <a href="{% url 'producto_detalle' producto.id %}">
+                                    {% if producto.imagenes.all %}
+                                        <img src="{{ producto.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
+                                    {% else %}
+                                        <img src="{% static 'images/default.png' %}" class="card-img-top" alt="{{ producto.titulo }}">
+                                    {% endif %}
+                                </a>
                                 <div class="card-body">
                                     <h6 class="card-title">{{ producto.titulo }}</h6>
                                     <p class="card-text">{{ producto.descripcion }}</p>
