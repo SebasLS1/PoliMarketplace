@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal - PoliMarketPlace</title>
+    
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <style>
         body {
@@ -213,9 +214,18 @@
 
                 <!-- Texto sobre el botón "Guardar para más tarde" -->
                 <div class="accion-texto">¿Quieres comprarlo más tarde?</div>
-                <button class="guardar">Guardar para más tarde</button>
+                <form method="POST" action="{% url 'productos:guardar_producto' producto.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="guardar">Guardar para más tarde</button>
+                </form>
+                
+                <!-- Para depurar -->
+                <p>Producto ID: {{ request.user.id }}</p>
             </div>
         </div>
     </div>
+    {% if mensaje %}
+    <script>alert("{{ mensaje }}");</script>
+    {% endif %}
 </body>
 </html>

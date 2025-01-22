@@ -94,7 +94,7 @@
                         <a href="{% url 'userView' %}" style="background-image: url('{% static 'images/Account.png' %}');">
                             <i class="fas fa-user"></i> <!-- images/Account.png-->
                         </a>
-                        <a href="#" style="background-image: url('{% static 'images/guardar.png' %}');"></a>
+                        <a href="{% url 'guardados' %}" style="background-image: url('{% static 'images/guardar.png' %}');"></a>
                         <a href="#" style="background-image: url('{% static 'images/Mensajes.png' %}');"></a>
                     </div>
                     <input type="text" class="form-control" placeholder="Buscar productos, servicios y más...">
@@ -141,7 +141,7 @@
                     {% for producto in productos_sector %}
                         <div class="col-md-4">
                             <div class="card">
-                                <a href="{% url 'producto_detalle' producto.id %}">
+                                <a href="{% url 'productos:producto_detalle' producto.id %}">
                                     {% if producto.imagenes.all %}
                                         <img src="{{ producto.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
                                     {% else %}
@@ -165,7 +165,7 @@
                     {% for producto in otros_productos %}
                         <div class="col-md-4">
                             <div class="card">
-                                <a href="{% url 'producto_detalle' producto.id %}">
+                                <a href="{% url 'productos:producto_detalle' producto.id %}">
                                     {% if producto.imagenes.all %}
                                         <img src="{{ producto.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
                                     {% else %}
