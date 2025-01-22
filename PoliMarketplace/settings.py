@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'userView',
     'publish',
     'productos',
+    'guardados',
 ]
 
 MIDDLEWARE = [

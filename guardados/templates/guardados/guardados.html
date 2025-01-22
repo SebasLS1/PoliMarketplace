@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artículos Guardados</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            background-image: url("{% static 'images/FondoPrincipal.png' %}");
+            background-position: top right;
+            background-repeat: no-repeat;
+            background-size: 750px 100px;
+        }
+        .title {
+            font-size: 2rem;
+            color: #2C3E50;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .text-primary-custom {
+            color: rgba(245, 134, 37, 0.85);
+        }
+        .item-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .item-card img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .item-card h6 {
+            font-size: 1rem;
+            color: #2C3E50;
+        }
+        .item-card p {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+        .price-tag {
+            font-size: 1rem;
+            color: rgba(245, 134, 37, 0.85);
+        }
+        /* Estilo para el icono de cierre */
+        .icon-buttons a {
+            display: inline-block;
+            width: 40px; /* Ajusta el tamaño del botón */
+            height: 40px; /* Ajusta el tamaño del botón */
+            background-image: url("{% static 'images/Close.png' %}");
+            background-size: contain; /* Asegura que la imagen se ajuste dentro del contenedor */
+            background-repeat: no-repeat;
+            text-decoration: none; /* Elimina cualquier decoración de texto */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1 class="title">Artículos <span class="text-primary-custom">guardados</span></h1>
+        <div class="icon-buttons">
+            <a href="{% url 'mainPage' %}"></a> <!-- El enlace solo necesita la imagen de fondo ahora -->
+        </div>
+        <div class="row mt-3">
+            {% if productos_guardados %}
+                {% for producto in productos_guardados %}
+                    <div class="col-md-4 mb-4"> <!-- Clase 'mb-4' para espacio en la parte inferior -->
+                        <div class="card">
+                            <a href="{% url 'productos:producto_detalle' producto.id %}">
+                                {% if producto.imagenes.all %}
+                                    <img src="{{ producto.imagenes.first.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
+                                {% else %}
+                                    <img src="{% static 'images/default_image.png' %}" class="card-img-top" alt="Imagen por defecto">
+                                {% endif %}
+                            </a>
+                            <div class="card-body">
+                                <h6 class="card-title">{{ producto.titulo }}</h6>
+                                <p class="card-text">{{ producto.descripcion }}</p>
+                                <p class="card-text">Precio: ${{ producto.precio }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No tienes productos guardados.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
