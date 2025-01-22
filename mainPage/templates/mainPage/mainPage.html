@@ -141,7 +141,7 @@
                     {% for producto in productos_sector %}
                         <div class="col-md-4">
                             <div class="card">
-                                <a href="{% url 'producto_detalle' producto.id %}">
+                                <a href="{% url 'productos:producto_detalle' producto.id %}">
                                     {% if producto.imagenes.all %}
                                         <img src="{{ producto.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
                                     {% else %}
@@ -165,7 +165,7 @@
                     {% for producto in otros_productos %}
                         <div class="col-md-4">
                             <div class="card">
-                                <a href="{% url 'producto_detalle' producto.id %}">
+                                <a href="{% url 'productos:producto_detalle' producto.id %}">
                                     {% if producto.imagenes.all %}
                                         <img src="{{ producto.imagenes.all.0.imagen.url }}" class="card-img-top" alt="{{ producto.titulo }}">
                                     {% else %}

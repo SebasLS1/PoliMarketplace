@@ -12,7 +12,7 @@ urlpatterns = [
     path('mainPage/', include('mainPage.urls')),
     path('userView/', include('userView.urls')),
     path('publish/', include('publish.urls')),
-    path('productos/', include('productos.urls')),
+    path('productos/', include(('productos.urls','productos'))),
 ]
 
 
