@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ chat.chat_name }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            background-image: url("{% static 'images/FondoPrincipal.png' %}");
+            background-position: top right;
+            background-repeat: no-repeat;
+            background-size: 750px 100px;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .chat-container {
+            width: 90%;
+            max-width: 800px;
+            height: 90%;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .chat-window {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f1f1f1;
+        }
+        ul#chat_messages {
+            list-style-type: none; /* Eliminar los puntos de la lista */
+            padding: 0;
+            margin: 0;
+        }
+        .chat-message {
+            margin-bottom: 15px; /* Aumentar el margen inferior */
+            clear: both;
+        }
+        .chat-message .message-content {
+            display: inline-block;
+            padding: 10px; /* Restaurar el padding */
+            border-radius: 10px;
+            max-width: 75%;
+        }
+        .chat-message.sent .message-content {
+            background-color: rgba(245, 134, 37, 0.8); /* Naranja menos nítido */
+            text-align: right;
+            float: right;
+        }
+        .chat-message.received .message-content {
+            background-color: #e0e0e0; /* Gris más claro que el fondo */
+            float: left;
+        }
+        .chat-footer {
+            padding: 10px;
+            border-top: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+        }
+        .chat-footer input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            margin-right: 10px;
+            width: 100%; /* Hacer la barra más larga */
+        }
+        .chat-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #F58625; /* Naranja */
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>{{ chat.chat_name }}</h1>
+        </div>
+        <div class="chat-window" id="chat_window">
+            <ul id='chat_messages' class="flex flex-col justify-end gap-2 p-4">
+                {% for message in messages reversed %}
+                    {% if message.author == request.user %}
+                        <li class="chat-message sent">
+                            <div class="message-content">
+                                {{ message.body }}
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="chat-message received">
+                            <div class="message-content">
+                                {{ message.body }}
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="chat-footer">
+            <form id="chat_message_form" method="POST" class="w-full d-flex">
+               {% csrf_token %}
+               {{ form.body }}
+               <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function scrollToBottom() {
+            var chatWindow = document.getElementById('chat_window');
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        // Scroll to bottom on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            scrollToBottom();
+        });
+
+        // Scroll to bottom on form submit
+        document.getElementById('chat_message_form').onsubmit = function() {
+            setTimeout(scrollToBottom, 100);  // Scroll to bottom after a short delay
+        };
+    </script>
+</body>
+</html>

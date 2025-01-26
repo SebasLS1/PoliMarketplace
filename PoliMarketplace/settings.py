@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'publish',
     'productos',
     'guardados',
+    'chat',
 ]
 
 MIDDLEWARE = [
