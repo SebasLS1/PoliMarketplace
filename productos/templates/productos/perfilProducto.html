@@ -210,7 +210,10 @@
             <div class="acciones">
                 <!-- Texto sobre el botón "Enviar un mensaje" -->
                 <div class="accion-texto">¿Quieres comprar este producto?</div>
-                <button><strong>Enviar un mensaje a </strong> {{ producto.usuario }}</button>
+                <form method="POST" action="{% url 'iniciar_chat' producto.id %}">
+                    {% csrf_token %}
+                    <button type="submit"><strong>Enviar un mensaje a </strong> {{ producto.usuario }}</button>
+                </form>
 
                 <!-- Texto sobre el botón "Guardar para más tarde" -->
                 <div class="accion-texto">¿Quieres comprarlo más tarde?</div>
