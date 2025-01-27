@@ -87,6 +87,19 @@
             background-color: #F58625; /* Naranja */
             color: #ffffff;
         }
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -102,12 +115,7 @@
             </ul>
         </div>
         <div class="chat-footer">
-            <form id="chat_message_form" method="POST" class="w-full d-flex"
-                hx-post="{% url 'chat_view' %}"
-                hx-target="#chat_messages"
-                hx-swap="beforeend"
-                hx-trigger="afterend:resetForm()"
-                hx-reset="true">
+            <form id="chat_message_form" class="w-full d-flex">
                {% csrf_token %}
                {{ form.body }}
                <button type="submit">Enviar</button>
@@ -115,6 +123,36 @@
         </div>
     </div>
     <script>
+        const chatSocket = new WebSocket(
+            'ws://' + window.location.host + '/ws/chat/{{ chat.chat_name }}/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            const messageList = document.getElementById('chat_messages');
+            const newMessage = document.createElement('li');
+            newMessage.classList.add('chat-message', 'received');
+            newMessage.innerHTML = `<div class="message-content">${data.message}</div>`;
+            messageList.appendChild(newMessage);
+            scrollToBottom();
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.getElementById('chat_message_form').onsubmit = function(e) {
+            e.preventDefault();
+            const messageInput = document.querySelector('input[name="body"]');
+            const message = messageInput.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInput.value = '';
+            location.reload();
+            return false;
+        };
+
         function scrollToBottom() {
             var chatWindow = document.getElementById('chat_window');
             chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -124,16 +162,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             scrollToBottom();
         });
-
-        // Scroll to bottom on form submit
-        document.addEventListener("htmx:afterRequest", function() {
-            scrollToBottom();
-        });
-
-        // Function to reset the form
-        function resetForm() {
-            document.getElementById('chat_message_form').reset();
-        }
     </script>
 </body>
 </html>
