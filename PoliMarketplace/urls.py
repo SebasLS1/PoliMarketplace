@@ -14,6 +14,7 @@ urlpatterns = [
     path('publish/', include('publish.urls')),
     path('guardados/', include('guardados.urls')),
     path('productos/', include(('productos.urls','productos'))),
+    path('chat/', include('chat.urls')),
 ]
 
 
