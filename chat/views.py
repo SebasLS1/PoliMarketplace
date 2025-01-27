@@ -13,11 +13,17 @@ def chat_view(request):
         form = ChatmessageCreateForm(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
-            message.author = request.user  
-            message.group = chat  
+            message.author = request.user  # Asignar el autor del mensaje
+            message.group = chat  # Asignar el chat al mensaje
             message.save()
-            return redirect('/chat/')  
-        
+            if request.headers.get('HX-Request'):
+                context = {
+                    'message': message,
+                    'user': request.user
+                }
+                return render(request, 'chat/partials/chat_message_p.html', context)
+            return redirect('chat_view')  # Redirigir para evitar reenvío de formulario
+    else:
         form = ChatmessageCreateForm()
     
     return render(request, 'chat/chat.html', {'chat': chat, 'messages': chat_messages, 'form': form})

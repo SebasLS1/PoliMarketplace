@@ -97,24 +97,17 @@
         <div class="chat-window" id="chat_window">
             <ul id='chat_messages' class="flex flex-col justify-end gap-2 p-4">
                 {% for message in messages reversed %}
-                    {% if message.author == request.user %}
-                        <li class="chat-message sent">
-                            <div class="message-content">
-                                {{ message.body }}
-                            </div>
-                        </li>
-                    {% else %}
-                        <li class="chat-message received">
-                            <div class="message-content">
-                                {{ message.body }}
-                            </div>
-                        </li>
-                    {% endif %}
+                {%  include 'chat/chat_message.html' %}
                 {% endfor %}
             </ul>
         </div>
         <div class="chat-footer">
-            <form id="chat_message_form" method="POST" class="w-full d-flex">
+            <form id="chat_message_form" method="POST" class="w-full d-flex"
+                hx-post="{% url 'chat_view' %}"
+                hx-target="#chat_messages"
+                hx-swap="beforeend"
+                hx-trigger="afterend:resetForm()"
+                hx-reset="true">
                {% csrf_token %}
                {{ form.body }}
                <button type="submit">Enviar</button>
@@ -133,9 +126,14 @@
         });
 
         // Scroll to bottom on form submit
-        document.getElementById('chat_message_form').onsubmit = function() {
-            setTimeout(scrollToBottom, 100);  // Scroll to bottom after a short delay
-        };
+        document.addEventListener("htmx:afterRequest", function() {
+            scrollToBottom();
+        });
+
+        // Function to reset the form
+        function resetForm() {
+            document.getElementById('chat_message_form').reset();
+        }
     </script>
 </body>
 </html>
