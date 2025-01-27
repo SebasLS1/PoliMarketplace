@@ -1,9 +1,10 @@
+<!-- filepath: /c:/Users/ASUS/Documents/Req/PoliMarketPlace/chat/templates/chat/chat.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ chat.chat_name }}</title>
+    <title>{{ chat.title }}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <style>
@@ -30,11 +31,22 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
+            position: relative;
         }
         .chat-header {
             text-align: center;
             padding: 10px;
             border-bottom: 1px solid #dee2e6;
+            position: relative;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
         }
         .chat-window {
             flex: 1;
@@ -105,11 +117,19 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h1>{{ chat.chat_name }}</h1>
+            <button class="close-button" onclick="window.location.href='/mainPage/'">X</button>
+            <h1>{{ chat.title }}</h1>
+            <div>
+                {% for participant in chat.participants.all %}
+                    {% if participant != request.user %}
+                        <span>{{ participant.first_name }} {{ participant.last_name }}</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
         <div class="chat-window" id="chat_window">
             <ul id='chat_messages' class="flex flex-col justify-end gap-2 p-4">
-                {% for message in messages reversed %}
+                {% for message in messages %}
                 {%  include 'chat/chat_message.html' %}
                 {% endfor %}
             </ul>
@@ -129,12 +149,14 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            const messageList = document.getElementById('chat_messages');
-            const newMessage = document.createElement('li');
-            newMessage.classList.add('chat-message', 'received');
-            newMessage.innerHTML = `<div class="message-content">${data.message}</div>`;
-            messageList.appendChild(newMessage);
-            scrollToBottom();
+            if (data.message) {
+                const messageList = document.getElementById('chat_messages');
+                const newMessage = document.createElement('li');
+                newMessage.classList.add('chat-message', 'received');
+                newMessage.innerHTML = `<div class="message-content">${data.message}</div>`;
+                messageList.appendChild(newMessage);
+                scrollToBottom();
+            }
         };
 
         chatSocket.onclose = function(e) {
@@ -148,8 +170,9 @@
             chatSocket.send(JSON.stringify({
                 'message': message
             }));
+           // localStorage.setItem('lastMessage', message);  // Almacenar el mensaje en localStorage
             messageInput.value = '';
-            location.reload();
+            location.reload();  // Recargar la página después de enviar el mensaje
             return false;
         };
 
@@ -161,6 +184,15 @@
         // Scroll to bottom on page load
         document.addEventListener("DOMContentLoaded", function() {
             scrollToBottom();
+            const lastMessage = localStorage.getItem('lastMessage');
+            if (lastMessage) {
+                const messageList = document.getElementById('chat_messages');
+                const newMessage = document.createElement('li');
+                newMessage.classList.add('chat-message', 'sent');
+                newMessage.innerHTML = `<div class="message-content">${lastMessage}</div>`;
+                messageList.appendChild(newMessage);
+                localStorage.removeItem('lastMessage');  // Eliminar el mensaje de localStorage
+            }
         });
     </script>
 </body>
