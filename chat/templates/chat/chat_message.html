@@ -1,0 +1,13 @@
+{% if message.author == request.user %}
+<li class="chat-message sent">
+    <div class="message-content">
+        {{ message.body }}
+    </div>
+</li>
+{% else %}
+<li class="chat-message received">
+    <div class="message-content">
+        {{ message.body }}
+    </div>
+</li>
+{% endif %}
