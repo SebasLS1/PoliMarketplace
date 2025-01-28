@@ -14,6 +14,7 @@ urlpatterns = [
     path('guardados/', include('guardados.urls')),
     path('productos/', include(('productos.urls','productos'))),
     path('chat/', include('chat.urls')),
+    path('chatlist/', include('chatlist.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
