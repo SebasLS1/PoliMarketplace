@@ -1,3 +1,4 @@
+<!-- filepath: /c:/Users/ASUS/Documents/Req/PoliMarketPlace/mainPage/templates/mainPage/mainPage.html -->
 {% load static %}
 
 <!DOCTYPE html>
@@ -71,6 +72,7 @@
         .icon-buttons {
             display: flex;
             align-items: center;
+            position: relative;
         }
         .icon-buttons a {
             display: inline-block;
@@ -79,6 +81,26 @@
             background-size: contain;
             background-repeat: no-repeat;
             margin: 0 5px; /* Espaciado entre los iconos */
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 35px;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000;
+            width: 200px; /* Ajustar el ancho del menú desplegable */
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        .dropdown-menu a:hover {
+            background-color: #f0f2f5;
         }
     </style>
 </head>
@@ -95,7 +117,11 @@
                             <i class="fas fa-user"></i> <!-- images/Account.png-->
                         </a>
                         <a href="{% url 'guardados' %}" style="background-image: url('{% static 'images/guardar.png' %}');"></a>
-                        <a href="#" style="background-image: url('{% static 'images/Mensajes.png' %}');"></a>
+                        <a href="#" id="messagesIcon" style="background-image: url('{% static 'images/Mensajes.png' %}');"></a>
+                        <div class="dropdown-menu" id="messagesDropdown">
+                            <a class="dropdown-item" href="{% url 'chats_vendedor' %}">Chats de Vendedor</a>
+                            <a class="dropdown-item" href="{% url 'chats_comprador' %}">Chats de Comprador</a>
+                        </div>
                     </div>
                     <input type="text" class="form-control" placeholder="Buscar productos, servicios y más...">
                 </div>
@@ -186,7 +212,8 @@
             </div>
         </div>
     </div>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const filterLinks = document.querySelectorAll('.filter-link');
@@ -195,6 +222,20 @@
                     filterLinks.forEach(link => link.classList.remove('selected'));
                     this.classList.add('selected');
                 });
+            });
+
+            const messagesIcon = document.getElementById('messagesIcon');
+            const messagesDropdown = document.getElementById('messagesDropdown');
+
+            messagesIcon.addEventListener('click', function(event) {
+                event.preventDefault();
+                messagesDropdown.style.display = messagesDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!messagesIcon.contains(event.target) && !messagesDropdown.contains(event.target)) {
+                    messagesDropdown.style.display = 'none';
+                }
             });
         });
     </script>

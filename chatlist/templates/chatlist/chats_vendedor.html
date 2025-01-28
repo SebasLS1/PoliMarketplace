@@ -7,14 +7,64 @@
     <title>Chats de Vendedor</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            background-image: url("{% static 'images/FondoPrincipal.png' %}");
+            background-position: top right;
+            background-repeat: no-repeat;
+            background-size: 750px 100px;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .chat-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .chat-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .chat-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .chat-item .chat-info {
+            flex: 1;
+        }
+        .chat-item .chat-info h5 {
+            margin: 0;
+            font-size: 1rem;
+            color: #2C3E50;
+        }
+        .chat-item .chat-info p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Chats de Vendedor</h1>
-        <ul>
+        <h1 class="text-center">Chats de Vendedor</h1>
+        <ul class="chat-list">
             {% for chat in chats %}
-            <li>
-                <a href="{% url 'chat_view' chat.chat_name %}">{{ chat.title }}</a>
+            <li class="chat-item">
+                <img src="{{ chat.producto.imagenes.all.0.imagen.url }}" alt="{{ chat.producto.titulo }}">
+                <div class="chat-info">
+                    <h5>{{ chat.title }}</h5>
+                    <p>Con: {% for participant in chat.participants.all %}{% if participant != request.user %}{{ participant.first_name }} {{ participant.last_name }}{% endif %}{% endfor %}</p>
+                </div>
+                <a href="{% url 'chat_view' chat.chat_name %}" class="btn btn-primary">Ir al chat</a>
             </li>
             {% endfor %}
         </ul>
