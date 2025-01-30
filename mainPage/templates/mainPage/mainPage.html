@@ -130,10 +130,11 @@
         <div class="row mt-3">
             <div class="col-md-3">
                 <div class="filter-menu">
+                    <h5>Filtrar por...</h5>
                 <!-- Filtro de Categoría -->
                     <div class="row mb-4">
                         <div class="col-md-12">
-                            <h6>Filtrar por categoría:</h6>
+                            <h6>Categoría:</h6>
                             <form method="get" action="{% url 'mainPage' %}">
                         <div class="form-group">
                         <select name="categoria_id" class="form-control">
@@ -151,7 +152,6 @@
             </div>
                 
         </select>
-                    <h5>Filtrar por:</h5>
                     <div class="filter-option">
                         <label for="price-range">Precio:</label>
                         <div class="d-flex">
@@ -159,13 +159,26 @@
                             <input type="text" id="price-max" class="form-control" placeholder="Hasta">
                         </div>
                     </div>
+
                     <div class="filter-option mt-3">
-                        <label for="condition">Condición:</label>
-                        <select id="condition" class="form-control">
-                            <option value="">Seleccione</option>
-                            <option value="new">Nuevo</option>
-                            <option value="used">Usado</option>
-                        </select>
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <h6>Condición:</h6>
+                                <form method="get" action="{% url 'mainPage' %}">
+                            <div class="form-group">
+                            <select name="estado_id" class="form-control">
+                            <option value="">Cualquiera</option>
+                            {% for estado in estados %}
+                                <option value="{{ estado.id }}" {% if estado.id == request.GET.estado_id %}selected{% endif %}>
+                                    {{ estado.nombre_estado }}
+                                </option>
+                            {% endfor %}
+                            </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+                        </form>
+                    </div>
+                </div>
                     </div>
                 </div>
             </div>
