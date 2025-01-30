@@ -153,11 +153,20 @@
                 
         </select>
                     <div class="filter-option">
-                        <label for="price-range">Precio:</label>
-                        <div class="d-flex">
-                            <input type="text" id="price-min" class="form-control" placeholder="Desde" style="margin-right: 5px;">
-                            <input type="text" id="price-max" class="form-control" placeholder="Hasta">
-                        </div>
+                        <h6>Precio:</h6>
+                        <label> Rango de Precio</label>
+                        <form method="GET">
+                            <input type="hidden" name="categoria_id" value="{{ request.GET.categoria_id }}">
+                            <input type="hidden" name="estado_id" value="{{ request.GET.estado_id }}">
+                            
+                            <label for="precio_min">Desde:</label>
+                            <input type="number" name="precio_min" step="0.01" value="{{ request.GET.precio_min }}">
+                            
+                            <label for="precio_max">Hasta:  </label>
+                            <input type="number" name="precio_max" step="0.01" value="{{ request.GET.precio_max }}">
+                            
+                            <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+                        </form>
                     </div>
 
                     <div class="filter-option mt-3">
