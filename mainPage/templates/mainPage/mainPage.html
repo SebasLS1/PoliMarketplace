@@ -123,7 +123,26 @@
                             <a class="dropdown-item" href="{% url 'chats_comprador' %}">Chats de Comprador</a>
                         </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="Buscar productos, servicios y más...">
+                    <!-- Barra de búsqueda sin form -->
+                <input type="text" id="searchBox" placeholder="Buscar productos..." value="{{ request.GET.q|default_if_none:'' }}">
+
+                <script>
+                document.getElementById("searchBox").addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {  // Detecta cuando el usuario presiona Enter
+                    event.preventDefault();  // Evita que el formulario se envíe si estuviera en uno
+                    let query = this.value.trim();  // Obtiene el texto ingresado
+                    let urlParams = new URLSearchParams(window.location.search);
+            
+                if (query) {
+                    urlParams.set("q", query);  // Agrega la búsqueda a la URL
+                } else {
+                    urlParams.delete("q");  // Elimina el parámetro si está vacío
+                }
+            
+            window.location.search = urlParams.toString();  // Redirige con los filtros aplicados
+        }
+    });
+</script>
                 </div>
             </div>
         </div>

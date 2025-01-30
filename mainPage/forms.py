@@ -13,6 +13,11 @@ class FiltroProductoForm(forms.Form):
         required=False
     )
     
+    nombre_producto = forms.CharField(
+        label="Nombre del producto",
+        required=False
+    )
+    
     categoria = forms.ModelChoiceField(
         queryset=Categoria.objects.all(),  # Obtiene todas las categorías
         empty_label="Selecciona una categoría",  # Esto es el texto por defecto
