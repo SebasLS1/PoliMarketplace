@@ -44,13 +44,19 @@ def lista_productos_view(request):
             otros_productos = otros_productos.filter(precio__lte=precio_max)
         except ValueError:
             pass
-    
+    # Nombre
+    query = request.GET.get('q')
+    if query: 
+        productos_sector = productos_sector.filter(titulo__icontains=query)
+        otros_productos = otros_productos.filter(titulo__icontains=query)
+        
     # Ahora pasamos tanto productos sector como los demás productos (sin filtro de zona)
     context = {
         'productos_sector': productos_sector,
         'otros_productos': otros_productos,
         'categorias': categorias,
         'estados': estados,
+        'query': query,
     }
 
     return render(request, 'mainPage/mainPage.html', context)
