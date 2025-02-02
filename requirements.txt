@@ -105,7 +105,6 @@ python-json-logger==3.2.1
 pytz==2025.1
 pywaffle==1.1.1
 PyWavelets==1.8.0
-pywin32==304   # versión compatible con Python 3.7+
 pywinpty==2.0.14
 PyYAML==6.0.2
 pyzmq==26.2.1
